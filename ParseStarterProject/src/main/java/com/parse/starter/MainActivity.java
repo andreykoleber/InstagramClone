@@ -6,7 +6,7 @@
  * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  */
-package com.parse.starter;.idea gitignore
+package com.parse.starter;
 
 import android.content.Intent;
 import android.os.Bundle;
