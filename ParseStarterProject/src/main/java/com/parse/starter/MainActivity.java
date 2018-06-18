@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Switch;
 
+import com.parse.FindCallback;
 import com.parse.GetCallback;
 import com.parse.LogInCallback;
 import com.parse.Parse;
@@ -25,6 +26,9 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -78,18 +82,66 @@ public class MainActivity extends AppCompatActivity {
 //            }
 //        });
 
-        ParseQuery<ParseObject> query =  ParseQuery.getQuery("Tweet");
-        query.getInBackground("dBBoIFg3LJ", new GetCallback<ParseObject>() {
+//        ParseQuery<ParseObject> query =  ParseQuery.getQuery("Tweet");
+//        query.getInBackground("dBBoIFg3LJ", new GetCallback<ParseObject>() {
+//            @Override
+//            public void done(ParseObject object, ParseException e) {
+//                if (object != null && e == null) {
+//                    object.put("tweet", "The tweet was updated. Update Second");
+//                    object.saveInBackground();
+//                    Log.d("test", object.getString("tweet"));
+//                    Log.d("test", object.getString("username"));
+//                }
+//            }
+//        });
+//
+//        ParseAnalytics.trackAppOpenedInBackground(getIntent());
+
+
+//        ParseQuery<ParseObject> query = ParseQuery.getQuery("Score");
+//        query.whereEqualTo("username", "andreykoleber");
+//        query.setLimit(1);
+//        query.findInBackground(new FindCallback<ParseObject>() {
+//            @Override
+//            public void done(List<ParseObject> objects, ParseException e) {
+//                if (e == null) {
+//                    Log.i("test", "Retrieved " + objects.size() + " objects");
+//                    if (objects.size() > 0) {
+//                        for (ParseObject object : objects) {
+//                            Log.i("test", String.valueOf(object.getInt("score")));
+//                        }
+//                    }
+//                }
+//            }
+//        });
+
+
+        ParseQuery<ParseObject> userListQuery = ParseQuery.getQuery("Score");
+        userListQuery.whereGreaterThanOrEqualTo("score", 100);
+        userListQuery.findInBackground(new FindCallback<ParseObject>() {
             @Override
-            public void done(ParseObject object, ParseException e) {
-                if (object != null && e == null) {
-                    object.put("tweet", "The tweet was updated. Update Second");
-                    object.saveInBackground();
-                    Log.d("test", object.getString("tweet"));
-                    Log.d("test", object.getString("username"));
+            public void done(List<ParseObject> objects, ParseException e) {
+                if (e == null) {
+                    if (objects.size() > 0) {
+                        for (ParseObject parseObject : objects) {
+                            if (parseObject.getInt("score") >= 100) {
+                                parseObject.put("score", parseObject.getInt("score") + 100);
+                                parseObject.saveInBackground(new SaveCallback() {
+                                    @Override
+                                    public void done(ParseException e) {
+                                        if (e == null) {
+                                            Log.i("test", "saved");
+                                        }
+                                    }
+                                });
+                            }
+                        }
+                    }
                 }
             }
         });
+
+
 
         ParseAnalytics.trackAppOpenedInBackground(getIntent());
     }
