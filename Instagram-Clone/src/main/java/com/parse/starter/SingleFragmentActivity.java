@@ -11,6 +11,16 @@ public abstract class SingleFragmentActivity extends AppCompatActivity {
 
     protected abstract Fragment createFragment();
 
+    public void showFragment(Fragment fragment) {
+        FragmentManager fm = getSupportFragmentManager();
+        if (fragment != null) {
+            fm.beginTransaction()
+                    .replace(R.id.fragment_container, fragment)
+                    .addToBackStack(null)
+                    .commit();
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

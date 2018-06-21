@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -45,7 +44,6 @@ public class AuthorizationFragment extends Fragment {
         fragment.setArguments(args);
         return fragment;
     }
-
 
     @Nullable
     @Override
@@ -118,6 +116,11 @@ public class AuthorizationFragment extends Fragment {
             }
         });
 
+        ParseUser currentUser = ParseUser.getCurrentUser();
+        if (currentUser != null) {
+            ((InstagramActivity) getActivity()).showFragment(UserListFragment.newInstance());
+        }
+
 
         ParseAnalytics.trackAppOpenedInBackground(getActivity().getIntent());
 
@@ -126,12 +129,12 @@ public class AuthorizationFragment extends Fragment {
 
     private void performAccess(String username, String password) {
         if (isUsernameAndPasswordValid()) {
-            switch(mAuthorizationMode) {
+            switch (mAuthorizationMode) {
                 case LOGIN:
-                    logIn(getUsername(), getPassword());
+                    logIn(username, password);
                     break;
                 case REGISTRATION:
-                    signUp(getUsername(), getPassword());
+                    signUp(username, password);
                     break;
             }
         }
@@ -144,7 +147,6 @@ public class AuthorizationFragment extends Fragment {
     private String getUsername() {
         return edtUsername.getText().toString();
     }
-
 
     private void logIn(String userName, String password) {
         ParseUser.logInInBackground(userName, password, new LogInCallback() {

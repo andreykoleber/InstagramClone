@@ -27,4 +27,5 @@
     <string name="user_with_such_user_name_are_already_registered">User with such username are already registered</string>
     <string name="login_failed">Login failed</string>
     <string name="your_are_successfully_loged_in">Your are successfully loged in</string>
+    <string name="logout">Logout</string>
 </resources>
