@@ -1,11 +1,4 @@
-<!--
-  ~ Copyright (c) 2015-present, Parse, LLC.
-  ~ All rights reserved.
-  ~
-  ~ This source code is licensed under the BSD-style license found in the
-  ~ LICENSE file in the root directory of this source tree. An additional grant
-  ~ of patent rights can be found in the PATENTS file in the same directory.
-  -->
+<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -15,7 +8,8 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".MainActivity">
+    tools:context=".InstagramActivity"
+    android:id="@+id/rlBackground">
 
     <ImageView
         android:id="@+id/imvInstagramLogo"
@@ -53,15 +47,22 @@
             android:id="@+id/btnSignUp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/sign_in" />
+            android:text="@string/sign_up" />
+
+        <Button
+            android:id="@+id/btnLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/login"
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/txvSwitch"
             android:layout_width="wrap_content"
-            android:text="@string/or_login"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
-            android:textColor="@color/sky_blue"
-            android:layout_height="wrap_content" />
+            android:text="@string/or_login"
+            android:textColor="@color/sky_blue" />
 
     </LinearLayout>
 
