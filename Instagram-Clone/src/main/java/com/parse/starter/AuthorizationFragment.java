@@ -31,7 +31,6 @@ public class AuthorizationFragment extends Fragment {
     private Button btnLogin;
     private String userName;
     private String password;
-    private ParseUser user;
     private EditText edtUsername;
     private EditText edtPassword;
 
@@ -74,7 +73,7 @@ public class AuthorizationFragment extends Fragment {
             }
         });
 
-        user = new ParseUser();
+
 
         btnSignUp = (Button) view.findViewById(R.id.btnSignUp);
         btnSignUp.setOnClickListener(new View.OnClickListener() {
@@ -116,10 +115,10 @@ public class AuthorizationFragment extends Fragment {
             }
         });
 
-        ParseUser currentUser = ParseUser.getCurrentUser();
-        if (currentUser != null) {
-            ((InstagramActivity) getActivity()).showFragment(UserListFragment.newInstance());
-        }
+//        ParseUser currentUser = ParseUser.getCurrentUser();
+//        if (currentUser != null) {
+//            ((InstagramActivity) getActivity()).showFragment(UserListFragment.newInstance());
+//        }
 
 
         ParseAnalytics.trackAppOpenedInBackground(getActivity().getIntent());
@@ -162,6 +161,7 @@ public class AuthorizationFragment extends Fragment {
     }
 
     private void signUp(String userName, String password) {
+        ParseUser user = new ParseUser();
         user.setUsername(userName);
         user.setPassword(password);
         user.signUpInBackground(new SignUpCallback() {

@@ -28,4 +28,7 @@
     <string name="login_failed">Login failed</string>
     <string name="your_are_successfully_loged_in">Your are successfully loged in</string>
     <string name="logout">Logout</string>
+    <string name="share">Share</string>
+    <string name="image_successfully_shared">Image successfully shared!</string>
+    <string name="image_could_not_be_shared">Image could not be shared -please try again later.</string>
 </resources>

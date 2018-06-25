@@ -9,6 +9,7 @@
 package com.parse.starter;
 
 
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 
 
@@ -19,4 +20,8 @@ public class InstagramActivity extends SingleFragmentActivity {
         return AuthorizationFragment.newInstance();
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+    }
 }
