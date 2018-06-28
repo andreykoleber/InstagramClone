@@ -115,10 +115,10 @@ public class AuthorizationFragment extends Fragment {
             }
         });
 
-//        ParseUser currentUser = ParseUser.getCurrentUser();
-//        if (currentUser != null) {
-//            ((InstagramActivity) getActivity()).showFragment(UserListFragment.newInstance());
-//        }
+        ParseUser currentUser = ParseUser.getCurrentUser();
+        if (currentUser != null) {
+            ((InstagramActivity) getActivity()).showFragment(UserListFragment.newInstance(), false);
+        }
 
 
         ParseAnalytics.trackAppOpenedInBackground(getActivity().getIntent());
@@ -153,6 +153,7 @@ public class AuthorizationFragment extends Fragment {
             public void done(ParseUser user, ParseException e) {
                 if (user != null) {
                     showMessage(R.string.your_are_successfully_loged_in);
+                    ((InstagramActivity)getActivity()).showFragment(UserListFragment.newInstance(), false);
                 } else {
                     showMessage(e.getMessage());
                 }
@@ -160,7 +161,7 @@ public class AuthorizationFragment extends Fragment {
         });
     }
 
-    private void signUp(String userName, String password) {
+    private void signUp(final String userName, final String password) {
         ParseUser user = new ParseUser();
         user.setUsername(userName);
         user.setPassword(password);
@@ -168,6 +169,7 @@ public class AuthorizationFragment extends Fragment {
             @Override
             public void done(ParseException e) {
                 if (e == null) {
+                    logIn(userName, password);
                     showMessage(R.string.your_are_successfully_sign_up);
                 } else {
                     showMessage(e.getMessage());

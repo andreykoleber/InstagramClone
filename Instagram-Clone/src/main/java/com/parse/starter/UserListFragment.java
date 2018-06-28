@@ -15,6 +15,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -61,7 +62,7 @@ public class UserListFragment extends Fragment {
         switch (item.getItemId()) {
             case R.id.menu_item_logout:
                 ParseUser.logOut();
-                ParseUser currentUser = ParseUser.getCurrentUser();
+                ((InstagramActivity)getActivity()).showFragment(AuthorizationFragment.newInstance(), false);
                 return true;
             case R.id.menu_item_share:
                 getPhoto();
@@ -83,13 +84,18 @@ public class UserListFragment extends Fragment {
         View view = inflater.inflate(R.layout.user_list_fragment, container, false);
 
         final ListView lsvUsers = (ListView) view.findViewById(R.id.lsvUsers);
-
-
         ParseQuery<ParseUser> query = ParseUser.getQuery();
         query.findInBackground(new FindCallback<ParseUser>() {
             @Override
             public void done(List<ParseUser> objects, ParseException e) {
                 lsvUsers.setAdapter(new UserListAdapter(getActivity(), objects));
+                lsvUsers.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                        ParseUser user = (ParseUser) adapterView.getItemAtPosition(i);
+                        ((InstagramActivity)getActivity()).showFragment(UserProfileFragment.newInstance(user.getUsername()), true);
+                    }
+                });
             }
         });
 

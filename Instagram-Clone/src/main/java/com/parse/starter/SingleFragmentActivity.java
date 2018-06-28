@@ -11,13 +11,19 @@ public abstract class SingleFragmentActivity extends AppCompatActivity {
 
     protected abstract Fragment createFragment();
 
-    public void showFragment(Fragment fragment) {
+    public void showFragment(Fragment fragment, boolean addToBackStack) {
         FragmentManager fm = getSupportFragmentManager();
         if (fragment != null) {
-            fm.beginTransaction()
-                    .replace(R.id.fragment_container, fragment)
-                    .addToBackStack(null)
-                    .commit();
+            if (addToBackStack) {
+                fm.beginTransaction()
+                        .replace(R.id.fragment_container, fragment)
+                        .addToBackStack(null)
+                        .commit();
+            } else {
+                fm.beginTransaction()
+                        .replace(R.id.fragment_container, fragment)
+                        .commit();
+            }
         }
     }
 
