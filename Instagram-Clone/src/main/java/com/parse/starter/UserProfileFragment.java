@@ -49,7 +49,7 @@ public class UserProfileFragment extends Fragment {
 
         final String userName = getUserName();
 
-        final ParseQuery<ParseObject> query = ParseQuery.getQuery("Image");
+        ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("Image");
         query.whereEqualTo("username", userName);
         query.orderByDescending("createdAt");
         query.findInBackground(new FindCallback<ParseObject>() {
@@ -72,6 +72,8 @@ public class UserProfileFragment extends Fragment {
                                         );
                                         imageView.setImageBitmap(bitmap);
                                         llUsers.addView(imageView);
+                                    } else {
+                                        Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
                                     }
                                 }
                             });
